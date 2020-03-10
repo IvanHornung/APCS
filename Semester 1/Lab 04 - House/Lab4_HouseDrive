@@ -1,0 +1,11 @@
+//Holm
+//Lab 4 - House
+//Learn to use the DrawingTool and SketchPad class
+public class Lab4_HouseDrive
+{
+    public static void main( String[] args )
+    {
+        Lab4_House house = new Lab4_House();
+        house.draw();
+    }
+}

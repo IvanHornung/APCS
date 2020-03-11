@@ -62,4 +62,48 @@ public class FauxkuMaker
         words[51] = new Word("Yemen", 2);
 
     }
+     //construct and return a haiku using random words from your words array
+    //A faux-ku is a three-line poem in which the first line has 5 syllables, the second line has
+    // 7 syllables, and the third line has 5 syllables.
+    //Reminder: You can use the escape sequence "\n" to move to the next line
+    //Note: An actual haiku has additional requirements that we are not incorporating;
+    // we are only using the haiku structure.
+    public String makeFauxku()
+    {
+        String s = "";
+        int fv = 5, svn = 7, count = 0;
+        //Line 1
+        while(count < fv){
+            int r = random();
+            if(count + words[r].getSyllables() <= fv ) {
+                s += words[r].getWord() + " " ;
+                count += words[r].getSyllables();
+            }
+        } count = 0; s += "\n";
+        while(count < svn){
+            int r = random();
+            if(count + words[r].getSyllables() <= svn ) {
+                s += words[r].getWord() + " " ;
+                count += words[r].getSyllables();
+            }
+        } count = 0; s += "\n";
+        while(count < fv){
+            int r = random();
+            if(count + words[r].getSyllables() <= fv ) {
+                s += words[r].getWord() + " " ;
+                count += words[r].getSyllables();
+            }
+        }
+        
+        
+        return s;
+    }
+
+    public int random(){
+        return (int)(Math.random()*52);
+    }
+}
+
+
+
 

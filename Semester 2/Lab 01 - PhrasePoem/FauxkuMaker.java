@@ -1,3 +1,5 @@
+//THE WORDS WERE INPUTTED BY ANOTHER STUDENT -- I wrote the actual code 
+
 public class FauxkuMaker
 {
     private Word[] words;

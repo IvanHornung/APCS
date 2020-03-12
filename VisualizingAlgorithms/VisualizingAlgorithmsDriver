@@ -1,0 +1,17 @@
+import javax.swing.*;
+import java.awt.*;
+public class VisualizingAlgorithmsDriver {
+    public static void main( String[] args ) {
+        JFrame frame = new JFrame( "Hornung's Algorithm Visualizer" );
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        frame.setLocation( 0, 0 );
+        VisualizingAlgorithms game = new VisualizingAlgorithms();
+        frame.getContentPane().add( game );
+        frame.pack();
+        //frame.setResizable(false);
+        frame.setVisible( true );
+        
+        game.dirtyWork();
+        game.go();
+    }
+}

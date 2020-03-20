@@ -1,0 +1,4 @@
+For this lab, we were asked to create a program analyzing any text we want in any way. For this lab, I decided to dedicate many hours
+into making it an interactive-movie-like program, that analyzes 44,000 of Donald Trump's tweets.
+
+This directory is a placeholder directory for Trump Twitter Analysis

@@ -1,6 +1,5 @@
 public class EightQueensDriver {
-    public static void main(String[] args ) {
-        EightQueens rec = new EightQueens();
-        rec.go();
+    public static void main(final String[] args ) {
+        EightQueens.go();
     }
 }

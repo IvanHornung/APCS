@@ -108,15 +108,51 @@ public class SortDriver {
         }
     }
 
-    public void mergeSort(int[] list, int first, int last) {
-        int mid = (first + last) / 2;
-        bubble( list, first, mid );
-        bubble( list, mid + 1, last );
-        merge( list, first, mid, last );
+    public void mergeSort(final int[] list, final int first, final int last) {
+        if (first < last) {
+            steps += 4; // mid =, 3 method calls
+            final int mid = (first + last) / 2;
+            mergeSort(list, first, mid);
+            mergeSort(list, mid + 1, last);
+            merge(list, first, mid, last);
+        }
     }
 
-    public void merge(int[] list, int first, int mid, int last) {
+    public void merge(final int[] list, final int first, final int mid, final int last) {
+        final int n1 = mid - first + 1;
+        final int n2 = last - mid;
+        final int left[] = new int[n1];
+        final int right[] = new int[n2];
+        steps += 4; // n1 =, n2 =, left[] =, right[] =
 
+        for (int i = 0; i < n1; i++) {
+            left[i] = list[first + i];
+        }
+        for (int i = 0; i < n2; i++) {
+            right[i] = list[mid + 1 + i];
+        }
+        int i = 0, j = 0, k = first;
+        while (i < n1 && j < n2) {
+            if (left[i] <= right[j]) {
+                list[k] = left[i];
+                i++;
+            }
+            else {
+                list[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < n1) {
+            list[k] = left[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            list[k] = right[j];
+            j++;
+            k++;
+        }
     }
 
     public void search(int[] list, int choice) {

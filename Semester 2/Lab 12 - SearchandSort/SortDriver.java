@@ -131,11 +131,27 @@ public class SortDriver {
             System.out.println("value is not in the list");
     }
 
-    public int binarySearch(int[] list, int value) {
+    public int binarySearch(int[] list, int value, int lower, int upper) {
+        if(upper > 0 ) {
+            int midpoint = lower + (upper - 1) / 2;
+            if(list[midpoint] == value)
+                return midpoint;
+            if(list[midpoint] > value)
+                return binarySearch(list, value, lower, midpoint - 1);
+            else
+                return binarySearch(list, value, midpoint + 1, upper);
+        }
         return -1;
     }
 
-    public int sequentialSearch(int[] list, int value) {
+    public short sequentialSearch(int[] list, int value) {
+        bubbleSort(list);
+        for(short i = 0; i < list.length; i++) {
+            if(list[i] == value) 
+                return i;
+            if(list[i] > value) //exit the loop to reduce unnecessary computing.
+                break;
+        }
         return -1;
     }
 }

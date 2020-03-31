@@ -2,32 +2,32 @@ import java.util.*;
 
 public class SortDriver {
     /* count and comment steps for:
-    assignment statements
-    comparisons
-    method calls*/
+          assignment statements
+          comparisons
+          method calls*/
     private long steps;
 
     public SortDriver() {
         steps = 0;
     }
 
-    public static void driver() {
-        SortDriver a = new SortDriver();
+    public static void Driver() {
+        final SortDriver a = new SortDriver();
         a.go();
     }
 
     public void go() {   
-        int choice = 0;
-        while (choice < 7) {
+        byte choice = 0;
+        while(choice < 7) {
             Scanner keys = new Scanner(System.in);
             System.out.println("enter number of items");
-            int size = keys.nextInt();
+            short size = keys.nextShort();
             int[] list = generateList(size);
             print(list);
 
             System.out.println("\n1 Bubble,     2 Sort1,        3 Sort2");
             System.out.println("4 MergeSort,    5 Binary Search,    6 Sequential Search,     7 Quit\n");
-            choice = keys.nextInt();
+            choice = keys.nextByte();
             if (choice == 1)
                 bubbleSort(list);
             else if (choice == 2)
@@ -40,11 +40,12 @@ public class SortDriver {
                 search(list, choice);
             if (choice < 7)
                 print(list);
+            steps = 0;
         }
     }
 
-    // returns a list of size elements with values from 1 to5 * size
-    public int[] generateList(int size) {
+    // returns a list of size elements with values from 1 to 5 * size
+    public int[] generateList(final short size) {
         steps= 0;
         int[] list = new int[size];
         for (int i = 0; i < size; i++) 
@@ -52,7 +53,7 @@ public class SortDriver {
         return list;    
     }
 
-    public void print(int[] list) {
+    public void print(final int[] list) {
         if (steps > 0)
             System.out.println("This sort took " + steps + " steps to sort " + list.length + " numbers");
         if (list.length <= 100)
@@ -80,92 +81,110 @@ public class SortDriver {
     }
 
     public void sort1(int[] list) {
-        System.out.println("Selection Sort");      
-
+        System.out.println("Selection Sort");
+        steps++; // i =
+        for (int i = 0; i < list.length; i++) {
+            steps += 3; // i <, i++, j =
+            int smallest = i;
+            for (int v = i++; v < list.length; v++) {
+                steps += 3; // j <, v++, list[v] >
+                if (list[v] < list[smallest]) {
+                    steps++; //smallest = 
+                    smallest = v;
+                }
+            }
+            swap(list, smallest, i);
+            steps++; //swap()
+        }
     }
 
     public void sort2(int[] list) {
         System.out.println("Insertion Sort");
+        steps++; // i =
+        for (int i = 1; i < list.length; i++) {
+            int v = i-1;
+            int temp = list[i];
+            steps += 4; //temp =, v =, i <, i++
+            while (list[v] > temp && v >= 0) {
+                list[v + 1] = list[v];
+                v--;
+                steps += 4; // j >=, list[j] >, list[j+1] =, j--
+            }
+            list[v + 1] = temp;
+            steps++; // list[v+1] =
+        }
     }
 
     // swaps list[a] with list[b]
-    public void swap (int[] list, int a, int b) {
+    public void swap(int[] list, int a, int b) {
         steps += 3;         // temp =, list[a] =, list[b] =
         int temp = list[a];
         list[a] = list[b];
         list[b] = temp;
     }
-
+    
     //to sort a portion of a list
     public void bubble(int[] list, int first, int last) {
-        steps++;
-        for (int outer = last; outer >= first ; outer--) {
-            for(int inner = first; inner < outer; inner++) {
-                if (list[inner] > list[inner + 1]) {
+        for (int outer = last; outer >= first ; outer--)
+            for(int inner = first; inner < outer; inner++)
+                if (list[inner] > list[inner + 1])
                     swap(list, inner, inner + 1);
-                }
-            }
+    }
+    
+    public void mergeSort(final int[] list, final int lower, final int upper) {
+        if (lower < upper) {
+            steps += 4; // midpoint = 
+            final int midpoint = (lower + upper) / 2;
+            mergeSort(list, lower, midpoint);
+            mergeSort(list, midpoint+1, upper);
+            merge(list, lower, midpoint, upper);
         }
     }
 
-    public void mergeSort(final int[] list, final int first, final int last) {
-        if (first < last) {
-            steps += 4; // mid =, 3 method calls
-            final int mid = (first + last) / 2;
-            mergeSort(list, first, mid);
-            mergeSort(list, mid + 1, last);
-            merge(list, first, mid, last);
-        }
-    }
-
-    public void merge(final int[] list, final int first, final int mid, final int last) {
-        final int n1 = mid - first + 1;
-        final int n2 = last - mid;
-        final int left[] = new int[n1];
-        final int right[] = new int[n2];
-        steps += 4; // n1 =, n2 =, left[] =, right[] =
-
-        for (int i = 0; i < n1; i++) {
+    public void merge(final int[] list, final int first, final int midpoint, final int last) {
+        final int num1 = midpoint - first + 1;
+        final int num2 = last - midpoint;
+        final int left[] = new int[num1];
+        final int right[] = new int[num2];
+        steps += 4; //
+        for (int i = 0; i < num1; i++) {
             left[i] = list[first + i];
         }
-        for (int i = 0; i < n2; i++) {
-            right[i] = list[mid + 1 + i];
+        for (int i = 0; i < num2; i++) {
+            right[i] = list[midpoint + 1 + i];
         }
-        int i = 0, j = 0, k = first;
-        while (i < n1 && j < n2) {
-            if (left[i] <= right[j]) {
-                list[k] = left[i];
+        int i = 0, v = 0;
+        int j = first;
+        while (i < num1 && v < num2) {
+            if (left[i] <= right[v]) {
+                list[j] = left[i];
                 i++;
             }
             else {
-                list[k] = right[j];
-                j++;
+                list[j] = right[v];
+                v++;
             }
-            k++;
-        }
-        while (i < n1) {
-            list[k] = left[i];
-            i++;
-            k++;
-        }
-        while (j < n2) {
-            list[k] = right[j];
             j++;
-            k++;
+        }
+        while (i < num1) {
+            list[j] = left[i];
+            i++;
+            j++;
+        }
+        while (j < num2) {
+            list[j] = right[j];
+            j++;
+            j++;
         }
     }
 
     public void search(int[] list, int choice) {
-        Scanner keys = new Scanner(System.in);
+        final Scanner keys = new Scanner(System.in);
         System.out.println("Enter an item to search for");
-        int value = keys.nextInt();
-        int spot;
-        if (choice == 5) {
-            bubbleSort(list); //binarySearch is recursive, so running bubbleSort at the beginning of method execution tampers with step count
-            steps++; //bubbleSort()  (not counting method calling here because it isnt part of the algorithm)
-            spot = binarySearch(list, value, 0, list.length-1);
-            //spot = binarySearchX(list, 0, list.length-1, value);
-        }
+        final int value = keys.nextInt();
+        short spot;
+        if (choice == 5)
+            spot = binarySearch(list, value);
         else
             spot = sequentialSearch(list, value);
 
@@ -175,35 +194,11 @@ public class SortDriver {
             System.out.println("value is not in the list");
     }
 
-    public int binarySearch(int[] list, int value, int lower, int upper) {
-        steps++; //upper > 0
-        if(upper > 0 ) {
-            int midpoint = lower + (upper - 1) / 2;
-            steps += 2; //midpoint =, list[midpoint] ==
-            if(list[midpoint] == value) 
-                return midpoint;
-            if(list[midpoint] > value) {
-                steps += 2; //list[midpoint] >, binarySearch()
-                return binarySearch(list, value, lower, midpoint - 1);
-            }
-            steps += 2; //list[midpoint] >, binarySearch()
-            return binarySearch(list, value, midpoint + 1, upper);
-        }
+    public short binarySearch(int[] list, int value) {
         return -1;
     }
 
-    public int sequentialSearch(int[] list, int value) {
-        bubbleSort(list);
-        steps += 3; //i = 0, i < (only for first comparison in for loop), bubbleSort()
-        for(short i = 0; i < list.length; i++) {
-            steps ++; //list[i] ==
-            if(list[i] == value) 
-                return i;
-            steps++; //list[i] >
-            if(list[i] > value) //exit the loop to reduce unnecessary computing (list is sorted)
-                break;
-            steps++; //i < (for the next loop iteration)
-        }
+    public short sequentialSearch(int[] list, int value) {
         return -1;
     }
 }

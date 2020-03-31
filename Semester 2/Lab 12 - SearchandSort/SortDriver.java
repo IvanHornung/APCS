@@ -2,9 +2,9 @@ import java.util.*;
 
 public class SortDriver {
     /* count and comment steps for:
-          assignment statements
-          comparisons
-          method calls*/
+    assignment statements
+    comparisons
+    method calls*/
     private long steps;
 
     public SortDriver() {
@@ -81,7 +81,7 @@ public class SortDriver {
 
     public void sort1(int[] list) {
         System.out.println("Selection Sort");      
-        
+
     }
 
     public void sort2(int[] list) {
@@ -95,15 +95,19 @@ public class SortDriver {
         list[a] = list[b];
         list[b] = temp;
     }
-    
+
     //to sort a portion of a list
     public void bubble(int[] list, int first, int last) {
-        for (int outer = last; outer >= first ; outer--)
-            for(int inner = first; inner < outer; inner++)
-                if (list[inner] > list[inner + 1])
+        steps++;
+        for (int outer = last; outer >= first ; outer--) {
+            for(int inner = first; inner < outer; inner++) {
+                if (list[inner] > list[inner + 1]) {
                     swap(list, inner, inner + 1);
+                }
+            }
+        }
     }
-    
+
     public void mergeSort(int[] list, int first, int last) {
         int mid = (first + last) / 2;
         bubble( list, first, mid );
@@ -112,7 +116,7 @@ public class SortDriver {
     }
 
     public void merge(int[] list, int first, int mid, int last) {
-        
+
     }
 
     public void search(int[] list, int choice) {
@@ -120,8 +124,12 @@ public class SortDriver {
         System.out.println("Enter an item to search for");
         int value = keys.nextInt();
         int spot;
-        if (choice == 5)
-            spot = binarySearch(list, value);
+        if (choice == 5) {
+            bubbleSort(list); //binarySearch is recursive, so running bubbleSort at the beginning of method execution tampers with step count
+            steps++; //bubbleSort()  (not counting method calling here because it isnt part of the algorithm)
+            spot = binarySearch(list, value, 0, list.length-1);
+            //spot = binarySearchX(list, 0, list.length-1, value);
+        }
         else
             spot = sequentialSearch(list, value);
 
@@ -132,25 +140,33 @@ public class SortDriver {
     }
 
     public int binarySearch(int[] list, int value, int lower, int upper) {
+        steps++; //upper > 0
         if(upper > 0 ) {
             int midpoint = lower + (upper - 1) / 2;
-            if(list[midpoint] == value)
+            steps += 2; //midpoint =, list[midpoint] ==
+            if(list[midpoint] == value) 
                 return midpoint;
-            if(list[midpoint] > value)
+            if(list[midpoint] > value) {
+                steps += 2; //list[midpoint] >, binarySearch()
                 return binarySearch(list, value, lower, midpoint - 1);
-            else
-                return binarySearch(list, value, midpoint + 1, upper);
+            }
+            steps += 2; //list[midpoint] >, binarySearch()
+            return binarySearch(list, value, midpoint + 1, upper);
         }
         return -1;
     }
 
-    public short sequentialSearch(int[] list, int value) {
+    public int sequentialSearch(int[] list, int value) {
         bubbleSort(list);
+        steps += 3; //i = 0, i < (only for first comparison in for loop), bubbleSort()
         for(short i = 0; i < list.length; i++) {
+            steps ++; //list[i] ==
             if(list[i] == value) 
                 return i;
-            if(list[i] > value) //exit the loop to reduce unnecessary computing.
+            steps++; //list[i] >
+            if(list[i] > value) //exit the loop to reduce unnecessary computing (list is sorted)
                 break;
+            steps++; //i < (for the next loop iteration)
         }
         return -1;
     }

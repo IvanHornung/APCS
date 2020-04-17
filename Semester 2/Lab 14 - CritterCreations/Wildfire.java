@@ -16,9 +16,9 @@ public class Wildfire extends Critter {
                 default:
                 setColor(Color.RED.brighter()); break;
             }
-                break;
+            break;
             case 1:
-            case 2:
+              case 2:
             switch((byte)(Math.random()*3)) {    
                 case 0:
                 setColor(Color.ORANGE.darker()); break;
@@ -27,7 +27,7 @@ public class Wildfire extends Critter {
                 default:
                 setColor(Color.ORANGE.brighter()); break;
             }
-                break;
+            break;
             default:
             switch((byte)(Math.random()*3)) {    
                 case 0:
@@ -37,7 +37,7 @@ public class Wildfire extends Critter {
                 default:
                 setColor(Color.YELLOW.brighter()); break;
             }
-                break;
+            break;
         }
     }
 
@@ -65,9 +65,8 @@ public class Wildfire extends Critter {
             for (short v = 0; v < grid.getNumCols(); v++) {
                 Location pos = new Location(i,v);
                 Actor neighbor = grid.get(pos);
-                if (grid.isValid(pos) && !(neighbor instanceof Actor)) {
+                if (!(neighbor instanceof Actor) && grid.isValid(pos)) 
                     availableLoc.add(pos);
-                }
             }
         }
         return availableLoc;

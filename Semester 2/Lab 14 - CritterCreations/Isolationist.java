@@ -14,7 +14,9 @@ public class Isolationist extends Critter {
 
     public ArrayList<Location> getMoveLocations() {
         ArrayList locs = new ArrayList<Location>();
-        if(!isolate)
+        if(isolate)
+            goInsane();
+        else
             for(int r = 0; r < getGrid().getNumRows(); r++) 
                 for(int c = 0; c < getGrid().getNumCols(); c++)
                     if(getGrid().get(new Location(r,c)) == null)
@@ -32,5 +34,9 @@ public class Isolationist extends Critter {
                 for(Location surroundings: adjascents) 
                     (new Rock()).putSelfInGrid(getGrid(),surroundings);
             }
+    }
+    
+    void goInsane() {
+        setDirection((short)(Math.random()*359));
     }
 }

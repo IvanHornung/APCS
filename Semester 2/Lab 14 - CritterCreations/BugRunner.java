@@ -29,8 +29,8 @@ public class BugRunner {
         world.add(new Bug(Color.BLUE));
         world.add(new Bug(Color.GREEN));
 
-        for(int i = 0; i < 3; i++) 
-            world.add(new Rock());
+        //for(int i = 0; i < 3; i++) 
+        //    world.add(new Rock());
 
         world.show();
     }

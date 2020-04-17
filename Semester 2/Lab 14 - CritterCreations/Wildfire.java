@@ -16,6 +16,7 @@ public class Wildfire extends Critter {
                 default:
                 setColor(Color.RED.brighter()); break;
             }
+                break;
             case 1:
             case 2:
             switch((byte)(Math.random()*3)) {    
@@ -26,6 +27,7 @@ public class Wildfire extends Critter {
                 default:
                 setColor(Color.ORANGE.brighter()); break;
             }
+                break;
             default:
             switch((byte)(Math.random()*3)) {    
                 case 0:
@@ -35,6 +37,7 @@ public class Wildfire extends Critter {
                 default:
                 setColor(Color.YELLOW.brighter()); break;
             }
+                break;
         }
     }
 

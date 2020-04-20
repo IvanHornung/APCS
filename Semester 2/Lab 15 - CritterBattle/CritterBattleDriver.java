@@ -19,8 +19,8 @@ import info.gridworld.grid.*;
 import java.awt.*;
 
 public class BugRunner {
-    public static void main(String[] args) {
-        ActorWorld world = new ActorWorld();
+    public static void main(final String[] args) {
+        final ActorWorld world = new ActorWorld();
 
         world.add(new Bug(Color.RED));
         world.add(new Bug(Color.BLUE));

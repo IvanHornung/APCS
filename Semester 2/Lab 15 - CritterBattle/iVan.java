@@ -57,7 +57,7 @@ public class iVan extends Critter {
     public void processActors(final ArrayList<Actor> victims) {
         moveCount++;
         if (victims.size() != 0)
-            victims.get((byte) (Math.random() * victims.size())).removeSelfFromGrid();
+            victims.get(0).removeSelfFromGrid();
         final Grid<Actor> grid = getGrid();
         if(moveCount % 3 == 0 && getMoveLocations().size() > 0 ) {
             (new iVan()).putSelfInGrid(grid, getMoveLocations().get(0));

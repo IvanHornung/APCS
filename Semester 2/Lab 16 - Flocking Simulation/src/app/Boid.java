@@ -78,7 +78,7 @@ public class Boid {
             steering.divide((double)total);
             steering.setMagnitude(this.maxSpeed);
             steering.subtract(this.velocity);
-            steering.limit(this.maxForce);
+            steering.limit(10);
         }
         return steering;
     }

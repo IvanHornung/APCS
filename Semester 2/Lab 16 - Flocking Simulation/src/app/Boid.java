@@ -61,7 +61,9 @@ public class Boid {
 
     void flock(ArrayList<Boid> flock) {
         Vector alignment = this.align(flock);
-        this.acceleration = alignment;
+        Vector cohesion = this.cohesion(flock);
+        this.acceleration = alignment; //at this stage, commenting out this line and setting visiondistance is rly cool
+        this.acceleration = cohesion;
     }
 
     

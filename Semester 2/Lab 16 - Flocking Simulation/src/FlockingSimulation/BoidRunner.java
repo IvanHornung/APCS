@@ -1,4 +1,4 @@
-package FlockingSimulation;
+package flockingsimulation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,10 +30,10 @@ public class BoidRunner extends JPanel {
         while(true) {
             for(Boid boid : flock){
                 boid.update();
-                try {
-                    Thread.sleep(1);
-                } catch( InterruptedException ex ){}
             }
+            try {
+                Thread.sleep(5);
+            } catch( InterruptedException ex ){}
             this.repaint();
         }
     }

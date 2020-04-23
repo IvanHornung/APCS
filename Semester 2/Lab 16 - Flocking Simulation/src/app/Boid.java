@@ -59,11 +59,35 @@ public class Boid {
         return steering;
     }
 
+    Vector separation(ArrayList<Boid> flock) {
+        int perceptionRadius = 100;
+        int total = 0;
+        Vector steering = new Vector(0,0);
+        for(Boid boid : flock) {
+            double dist = distance(this.position.xvalue, this.position.yvalue, boid.position.xvalue, boid.position.yvalue);
+            if(boid != this && dist < perceptionRadius) {
+                Vector difference = this.position.subtract(boid.position);
+                difference.multiply(1 / dist);
+                steering.add(boid.position);
+                total++;
+            }
+        }
+        if(total > 0) {
+            steering.divide((double)total);
+            steering.setMagnitude(this.maxSpeed);
+            steering.subtract(this.velocity);
+            steering.limit(this.maxForce);
+        }
+        return steering;
+    }
+
     void flock(ArrayList<Boid> flock) {
         this.acceleration.set(0, 0);
         Vector alignment = this.align(flock);
         Vector cohesion = this.cohesion(flock);
+        Vector separation = this.separation(flock)
         //Force accumulation:
+        this.acceleration.add(separation);
         this.acceleration.add(alignment);
         this.acceleration.add(cohesion);
     }

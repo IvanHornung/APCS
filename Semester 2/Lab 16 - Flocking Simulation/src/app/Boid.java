@@ -10,13 +10,14 @@ public class Boid {
     
     public Boid() {
         this.position = new Vector((double)(Math.random()*BoidRunner.WIDTH),(double)(Math.random()*BoidRunner.HEIGHT));
-        //double rad = Math.pow(Math.random());
-        this.velocity = new Vector(0,0);
+        double sqSine = Math.pow((Math.random()),2); //random vector with magnitude rand(2,4)
+        double sqCosine = 1-sqSine;
+        this.velocity = new Vector(Math.sqrt(sqSine), Math.sqrt(sqCosine));
         this.acceleration = new Vector(0,0);
     }
 
     Vector align(ArrayList<Boid> flock) {
-        int perceptionRadius = 100;
+        int perceptionRadius = 50;
         int total = 0;
         Vector steering = new Vector(0,0);
         for(Boid boid : flock) {
@@ -50,6 +51,6 @@ public class Boid {
 
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
-        g.fillOval((int)this.position.getXValue(),(int)this.position.getYValue(), 30, 30);
+        g.fillOval((int)this.position.getXValue(),(int)this.position.getYValue(), 15, 15);
     }
 }

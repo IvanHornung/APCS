@@ -1,4 +1,4 @@
-package flockingsimulation;
+package app;
 
 import javax.swing.*;
 import java.awt.*;

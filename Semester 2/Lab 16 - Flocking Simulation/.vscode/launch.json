@@ -8,7 +8,7 @@
             "type": "java",
             "name": "Debug (Launch)-BoidDriver<Flocking>",
             "request": "launch",
-            "mainClass": "flockingsimulation.BoidDriver",
+            "mainClass": "app.BoidDriver",
             "projectName": "Flocking"
         }
     ]

@@ -1,4 +1,4 @@
-package flockingsimulation;
+package app;
 
 import java.awt.*;
 import java.awt.geom.*;

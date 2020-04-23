@@ -1,4 +1,4 @@
-package flockingsimulation;
+package app;
 
 public class Vector {
     public double xvalue;

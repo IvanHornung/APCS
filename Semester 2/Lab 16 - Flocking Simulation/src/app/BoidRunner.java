@@ -8,6 +8,7 @@ public class BoidRunner extends JPanel {
     public static final int WIDTH = 1920;
     public static final int HEIGHT = 1080;
     ArrayList<Boid> flock = new ArrayList<Boid>();
+    private Music music;
 
     public BoidRunner() {
         this.setLayout(null);
@@ -18,6 +19,7 @@ public class BoidRunner extends JPanel {
         for(int i = 0; i < 200; i++)
             flock.add(new Boid());
 
+        music = new Music();
     }
 
     @Override

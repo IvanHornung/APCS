@@ -66,9 +66,11 @@ public class Boid {
         for(Boid boid : flock) {
             double dist = distance(this.position.xvalue, this.position.yvalue, boid.position.xvalue, boid.position.yvalue);
             if(boid != this && dist < perceptionRadius) {
-                Vector difference = this.position.subtract(boid.position);
-                difference.multiply(1 / dist);
-                steering.add(boid.position);
+                Vector difference = new Vector(this.position.xvalue, this.position.yvalue);
+                difference.subtract(boid.position);
+                if(dist == 0.0) dist += 0.001;
+                difference.divide(dist*dist); //or *1/x; inverselly proportional
+                steering.add(difference);
                 total++;
             }
         }
@@ -85,11 +87,11 @@ public class Boid {
         this.acceleration.set(0, 0);
         Vector alignment = this.align(flock);
         Vector cohesion = this.cohesion(flock);
-        Vector separation = this.separation(flock)
+        Vector separation = this.separation(flock);
         //Force accumulation:
+        this.acceleration.add(alignment);
+        this.acceleration.add(cohesion);
         this.acceleration.add(separation);
-        //this.acceleration.add(alignment);
-        //this.acceleration.add(cohesion);
     }
 
     

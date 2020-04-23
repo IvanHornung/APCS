@@ -48,10 +48,9 @@ public class Vector {
         this.yvalue += parent.getYValue();
     }
 
-    Vector subtract(Vector parent) {
+    void subtract(Vector parent) {
         this.xvalue -= parent.getXValue();
         this.yvalue -= parent.getYValue();
-        return this;
     }
 
     void multiply(double multiplier) {

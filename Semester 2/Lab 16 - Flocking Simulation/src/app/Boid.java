@@ -7,7 +7,8 @@ public class Boid {
     Vector position;
     Vector velocity;
     Vector acceleration;
-    double maxForce = 1;
+    double maxForce = 0.2;
+    double maxSpeed = 4;
     
     public Boid() {
         this.position = new Vector((double)(Math.random()*BoidRunner.WIDTH),(double)(Math.random()*BoidRunner.HEIGHT));
@@ -30,6 +31,7 @@ public class Boid {
         }
         if(total > 0) {
             steering.divide((double)total);
+            steering.setMagnitude(this.maxSpeed);
             steering.subtract(this.velocity);
             steering.limit(this.maxForce);
         }

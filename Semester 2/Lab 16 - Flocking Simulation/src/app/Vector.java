@@ -31,6 +31,11 @@ public class Vector {
         this.xvalue *= multiplier;
         this.yvalue *= multiplier;
     }
+
+    public void setMagnitude(double maxSpeed) {
+        double currentMagnitude = Math.sqrt(Math.pow(this.xvalue, 2) + Math.pow(this.yvalue, 2));
+        
+    }
     
     void add(Vector parent) {
         this.xvalue += parent.getXValue();

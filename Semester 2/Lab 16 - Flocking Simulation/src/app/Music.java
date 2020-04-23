@@ -10,9 +10,6 @@ import javax.swing.*;
 // To play sound using Clip, the process need to be alive.
 // Hence, we use a Swing application.
 public class Music extends JFrame {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private Clip clip;
 

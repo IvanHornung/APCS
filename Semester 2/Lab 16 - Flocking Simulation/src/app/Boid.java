@@ -8,8 +8,9 @@ public class Boid {
     Vector position;
     Vector velocity;
     Vector acceleration;
-    double maxForce = 0.2;
-    double maxSpeed = 4;
+
+    static double maxForce = 0.2;
+    static double maxSpeed = 4;
 
     static int size = 3;
     static Path2D shape = new Path2D.Double();
@@ -29,7 +30,7 @@ public class Boid {
     }
 
     Vector align(ArrayList<Boid> flock) {
-        int perceptionRadius = 50;
+        int perceptionRadius = (int)alignmentPerceptionRadius; //(alignmentPerceptionRadius == 50) ? 50 : (int)alignmentPerceptionRadius;
         int total = 0;
         Vector steering = new Vector(0,0);
         for(Boid boid : flock) {
@@ -41,15 +42,15 @@ public class Boid {
         }
         if(total > 0) {
             steering.divide((double)total);
-            steering.setMagnitude(this.maxSpeed);
+            steering.setMagnitude(((alignmentMaxSpeed != maxSpeed) ? alignmentMaxSpeed : maxSpeed));
             steering.subtract(this.velocity);
-            steering.limit(this.maxForce);
+            steering.limit(((alignmentMaxForce != maxForce) ? alignmentMaxForce : maxForce));
         }
         return steering;
     }
 
     Vector cohesion(ArrayList<Boid> flock) {
-        int perceptionRadius = 100;
+        int perceptionRadius = (int)cohesionPerceptionRadius;
         int total = 0;
         Vector steering = new Vector(0,0);
         for(Boid boid : flock) {
@@ -62,15 +63,15 @@ public class Boid {
         if(total > 0) {
             steering.divide((double)total);
             steering.subtract(this.position);
-            steering.setMagnitude(this.maxSpeed);
+            steering.setMagnitude(((cohesionMaxSpeed != maxSpeed) ? cohesionMaxSpeed : maxSpeed));
             steering.subtract(this.velocity);
-            steering.limit(this.maxForce);
+            steering.limit(((cohesionMaxForce != maxForce) ? cohesionMaxForce : maxForce));
         }
         return steering;
     }
 
     Vector separation(ArrayList<Boid> flock) {
-        int perceptionRadius = 100;
+        int perceptionRadius = (int)separationPerceptionRadius;
         int total = 0;
         Vector steering = new Vector(0,0);
         for(Boid boid : flock) {
@@ -86,9 +87,9 @@ public class Boid {
         }
         if(total > 0) {
             steering.divide((double)total);
-            steering.setMagnitude(this.maxSpeed);
+            steering.setMagnitude(((separationMaxSpeed != maxSpeed) ? separationMaxSpeed : maxSpeed));
             steering.subtract(this.velocity);
-            steering.limit(this.maxForce);
+            steering.limit(((separationMaxForce != maxForce) ? separationMaxForce : maxForce));
         }
         return steering;
     }
@@ -108,7 +109,7 @@ public class Boid {
     void update() {
         this.position.add(this.velocity);
         this.velocity.add(this.acceleration);
-        this.velocity.limit(this.maxSpeed);
+        this.velocity.limit(maxSpeed);
     }
 
     void edges() {
@@ -146,4 +147,47 @@ public class Boid {
         g.draw(shape);
         g.setTransform(save);
     }
+
+    //!MODIFICATIONS///////////////////////////////
+
+    static final double speedChangeValue = 10; //0.1
+    static final double forceChangeValue = 5; //0.05
+    static final double perceptionRadiusChangeValue = 100; //1
+
+    static double alignmentPerceptionRadius = 50;
+    static double alignmentMaxSpeed = maxSpeed;
+    static double alignmentMaxForce = maxForce;
+    static double cohesionPerceptionRadius = 100;
+    static double cohesionMaxSpeed = maxSpeed;
+    static double cohesionMaxForce = maxForce;
+    static double separationPerceptionRadius = 100;
+    static double separationMaxSpeed = maxSpeed;
+    static double separationMaxForce = maxForce;
+
+    //!General modifications
+    static void incrementMaxSpeed() { Boid.maxSpeed += speedChangeValue; }
+    static void decrementMaxSpeed() { Boid.maxSpeed -= speedChangeValue; }
+    static void incrementMaxForce() { Boid.maxForce += forceChangeValue; }
+    static void decrementMaxForce() { Boid.maxForce -= forceChangeValue; }
+    //!Alignment modifications
+    static void incremementAlignmentPerceptionRadius() { Boid.alignmentPerceptionRadius -= perceptionRadiusChangeValue; }
+    static void decrementAlignmentPerceptionRadius() { Boid.alignmentPerceptionRadius -= perceptionRadiusChangeValue; }
+    static void incrementAlignmentMaxSpeed() { Boid.alignmentMaxSpeed += speedChangeValue; }
+    static void decrementAlignmentMaxSpeed() { Boid.alignmentMaxSpeed -= speedChangeValue; }
+    static void incrementAlignmentMaxForce() { Boid.alignmentMaxForce += forceChangeValue; }
+    static void decrementAlignmentMaxForce() { Boid.alignmentMaxForce -= forceChangeValue; }
+    //!Cohesion modifications
+    static void incremementCohesionPerceptionRadius() { Boid.cohesionPerceptionRadius -= perceptionRadiusChangeValue; }
+    static void decrementCohesionPerceptionRadius() { Boid.cohesionPerceptionRadius -= perceptionRadiusChangeValue; }
+    static void incrementCohesionMaxSpeed() { Boid.cohesionMaxSpeed += speedChangeValue; }
+    static void decrementCohesionMaxSpeed() { Boid.cohesionMaxSpeed -= speedChangeValue; }
+    static void incrementCohesionMaxForce() { Boid.cohesionMaxForce += forceChangeValue; }
+    static void decrementCohesionMaxForce() { Boid.cohesionMaxForce -= forceChangeValue; }
+    //!Separation modifications
+    static void incremementSeparationPerceptionRadius() { Boid.separationPerceptionRadius -= perceptionRadiusChangeValue; }
+    static void decrementSeparationPerceptionRadius() { Boid.separationPerceptionRadius -= perceptionRadiusChangeValue; }
+    static void incrementSeparationMaxSpeed() { Boid.separationMaxSpeed += speedChangeValue; }
+    static void decrementSeparationMaxSpeed() { Boid.separationMaxSpeed -= speedChangeValue; }
+    static void incrementSeparationMaxForce() { Boid.separationMaxForce += forceChangeValue; }
+    static void decrementSeparationMaxForce() { Boid.separationMaxForce -= forceChangeValue; }
 }

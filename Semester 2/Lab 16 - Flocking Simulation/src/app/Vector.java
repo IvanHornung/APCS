@@ -19,6 +19,18 @@ public class Vector {
         
     public void setXValue(double newValue) { this.xvalue = newValue; }
     public void setYValue(double newValue) { this.yvalue = newValue; }
+
+    public void limit(double maxForce) {
+        double magnitude = Math.sqrt(Math.pow(this.xvalue, 2) + Math.pow(this.yvalue, 2));
+        double multiplier;
+        if(magnitude > maxForce) 
+            multiplier = maxForce / magnitude;
+        else
+            multiplier = 1.0;
+        
+        this.xvalue *= multiplier;
+        this.yvalue *= multiplier;
+    }
     
     void add(Vector parent) {
         this.xvalue += parent.getXValue();

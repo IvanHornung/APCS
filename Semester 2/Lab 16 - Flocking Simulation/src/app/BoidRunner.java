@@ -29,6 +29,7 @@ public class BoidRunner extends JPanel {
     public void run() {
         while(true) {
             for(Boid boid : flock){
+                boid.edges();
                 boid.flock(flock);
                 boid.update();
             }

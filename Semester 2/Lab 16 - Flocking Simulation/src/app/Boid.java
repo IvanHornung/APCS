@@ -7,6 +7,7 @@ public class Boid {
     Vector position;
     Vector velocity;
     Vector acceleration;
+    double maxForce = 1;
     
     public Boid() {
         this.position = new Vector((double)(Math.random()*BoidRunner.WIDTH),(double)(Math.random()*BoidRunner.HEIGHT));
@@ -30,6 +31,7 @@ public class Boid {
         if(total > 0) {
             steering.divide((double)total);
             steering.subtract(this.velocity);
+            steering.limit(this.maxForce);
         }
         return steering;
     }
@@ -43,6 +45,18 @@ public class Boid {
     void update() {
         this.position.add(this.velocity);
         this.velocity.add(this.acceleration);
+    }
+
+    void edges() {
+        if(this.position.xvalue > BoidRunner.WIDTH)
+            this.position.xvalue = 0;
+        else if(this.position.xvalue < 0)
+            this.position.xvalue = BoidRunner.WIDTH;
+        
+        if(this.position.yvalue > BoidRunner.HEIGHT)
+            this.position.yvalue = 0;
+        else if(this.position.yvalue < 0)
+            this.position.yvalue = BoidRunner.HEIGHT;
     }
 
     double distance(double x1, double y1, double x2, double y2) {

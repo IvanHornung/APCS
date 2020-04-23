@@ -38,6 +38,27 @@ public class Boid {
         return steering;
     }
 
+    Vector cohesion(ArrayList<Boid> flock) {
+        int perceptionRadius = 50;
+        int total = 0;
+        Vector steering = new Vector(0,0);
+        for(Boid boid : flock) {
+            double dist = distance(this.position.xvalue, this.position.yvalue, boid.position.xvalue, boid.position.yvalue);
+            if(boid != this && dist < perceptionRadius) {
+                steering.add(boid.position);
+                total++;
+            }
+        }
+        if(total > 0) {
+            steering.divide((double)total);
+            steering.subtract(this.position);
+            steering.setMagnitude(this.maxSpeed);
+            steering.subtract(this.velocity);
+            steering.limit(this.maxForce);
+        }
+        return steering;
+    }
+
     void flock(ArrayList<Boid> flock) {
         Vector alignment = this.align(flock);
         this.acceleration = alignment;

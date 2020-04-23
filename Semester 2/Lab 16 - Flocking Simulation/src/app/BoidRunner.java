@@ -42,6 +42,9 @@ public class BoidRunner extends JPanel {
             try {
                 Thread.sleep(10);
             } catch( InterruptedException ex ){}
+            int more = (int)(Math.random()*10);
+            if(more == 0 )
+                flock.add(new Boid());
             this.repaint();
         }
     }

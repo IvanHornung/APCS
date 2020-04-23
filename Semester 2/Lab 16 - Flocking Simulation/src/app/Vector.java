@@ -25,6 +25,11 @@ public class Vector {
         this.yvalue += parent.getYValue();
     }
 
+    void subtract(Vector parent) {
+        this.xvalue -= parent.getXValue();
+        this.yvalue -= parent.getYValue();
+    }
+
     void divide(double denominator) {
         this.xvalue /= denominator;
         this.yvalue /= denominator;

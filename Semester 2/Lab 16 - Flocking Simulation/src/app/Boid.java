@@ -1,10 +1,7 @@
 package app;
 
 import java.awt.*;
-import java.awt.geom.*;
 import java.util.ArrayList;
-import javax.swing.*;
-import java.awt.event.*;
 
 public class Boid {
     Vector position;
@@ -16,6 +13,18 @@ public class Boid {
         this.velocity = new Vector();
         this.acceleration = new Vector();
     }
+
+    void align(ArrayList<Boid> flock) {
+        int perception = 100;
+        Vector average = new Vector(0,0);
+        for(Boid boid : flock) {
+            double dist = distance(this.position.xvalue, this.position.yvalue, boid.position.xvalue, boid.position.yvalue);
+            average.add(boid.velocity);
+        }
+        average.divide((double)flock.size());
+    }
+
+
     
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
@@ -23,7 +32,11 @@ public class Boid {
     }
     
     void update() {
-        this.position.addVector(this.velocity);
-        this.velocity.addVector(this.acceleration);
+        this.position.add(this.velocity);
+        this.velocity.add(this.acceleration);
+    }
+
+    double distance(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2));
     }
 }

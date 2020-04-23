@@ -20,8 +20,13 @@ public class Vector {
     public void setXValue(double newValue) { this.xvalue = newValue; }
     public void setYValue(double newValue) { this.yvalue = newValue; }
     
-    void addVector(Vector parent) {
+    void add(Vector parent) {
         this.xvalue += parent.getXValue();
         this.yvalue += parent.getYValue();
+    }
+
+    void divide(double denominator) {
+        this.xvalue /= denominator;
+        this.yvalue /= denominator;
     }
 }

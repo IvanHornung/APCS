@@ -17,12 +17,16 @@ public class BoidRunner extends JPanel {
         
         for(int i = 0; i < 200; i++)
             flock.add(new Boid());
+
     }
 
+    @Override
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
+        Graphics2D g = (Graphics2D) page;
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         for(Boid boid: flock) {
-            boid.draw(page);
+            boid.draw(g);
         }
     }
 

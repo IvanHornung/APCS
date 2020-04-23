@@ -2,6 +2,7 @@ package app;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.geom.*;
 
 public class Boid {
     Vector position;
@@ -9,6 +10,15 @@ public class Boid {
     Vector acceleration;
     double maxForce = 0.2;
     double maxSpeed = 4;
+
+    static int size = 3;
+    static Path2D shape = new Path2D.Double();
+    static {
+        shape.moveTo(0,-size*2);
+        shape.lineTo(-size, size*2);
+        shape.lineTo(size,size*2);
+        shape.closePath();
+    }
     
     public Boid() {
         this.position = new Vector((double)(Math.random()*BoidRunner.WIDTH),(double)(Math.random()*BoidRunner.HEIGHT));
@@ -60,7 +70,7 @@ public class Boid {
     }
 
     Vector separation(ArrayList<Boid> flock) {
-        int perceptionRadius = 50;
+        int perceptionRadius = 100;
         int total = 0;
         Vector steering = new Vector(0,0);
         for(Boid boid : flock) {
@@ -78,7 +88,7 @@ public class Boid {
             steering.divide((double)total);
             steering.setMagnitude(this.maxSpeed);
             steering.subtract(this.velocity);
-            steering.limit(10);
+            steering.limit(this.maxForce);
         }
         return steering;
     }
@@ -117,8 +127,23 @@ public class Boid {
         return Math.sqrt(Math.pow((x2-x1), 2) + Math.pow((y2-y1), 2));
     }
 
-    public void draw(Graphics g) {
+    /*public void drawOld(Graphics2D g) {
+        //g.setColor(Color.WHITE);
+        //g.fillOval((int)this.position.getXValue(),(int)this.position.getYValue(), 15, 15);
+        g.translate((int)this.position.xvalue, (int)this.position.yvalue);
+        g.rotate(this.velocity.dir() + Math.PI/2);
         g.setColor(Color.WHITE);
-        g.fillOval((int)this.position.getXValue(),(int)this.position.getYValue(), 15, 15);
+        g.fill(shape);
+        g.draw(shape);
+    }*/
+
+    public void draw(Graphics2D g) {
+        AffineTransform save = g.getTransform();
+        g.translate((int)this.position.xvalue, (int)this.position.yvalue);
+        g.rotate(this.velocity.dir() + Math.PI/2);
+        g.setColor(Color.WHITE);
+        g.fill(shape);
+        g.draw(shape);
+        g.setTransform(save);
     }
 }

@@ -62,4 +62,8 @@ public class Vector {
         this.xvalue /= denominator;
         this.yvalue /= denominator;
     }
+
+    double dir() {
+        return Math.atan2(this.yvalue, this.xvalue);
+    }
 }

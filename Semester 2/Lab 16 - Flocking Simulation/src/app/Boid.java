@@ -88,8 +88,8 @@ public class Boid {
         Vector separation = this.separation(flock)
         //Force accumulation:
         this.acceleration.add(separation);
-        this.acceleration.add(alignment);
-        this.acceleration.add(cohesion);
+        //this.acceleration.add(alignment);
+        //this.acceleration.add(cohesion);
     }
 
     

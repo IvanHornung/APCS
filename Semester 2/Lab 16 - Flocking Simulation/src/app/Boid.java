@@ -39,7 +39,7 @@ public class Boid {
     }
 
     Vector cohesion(ArrayList<Boid> flock) {
-        int perceptionRadius = 50;
+        int perceptionRadius = 100;
         int total = 0;
         Vector steering = new Vector(0,0);
         for(Boid boid : flock) {
@@ -60,16 +60,19 @@ public class Boid {
     }
 
     void flock(ArrayList<Boid> flock) {
+        this.acceleration.set(0, 0);
         Vector alignment = this.align(flock);
         Vector cohesion = this.cohesion(flock);
-        this.acceleration = alignment; //at this stage, commenting out this line and setting visiondistance is rly cool
-        this.acceleration = cohesion;
+        //Force accumulation:
+        this.acceleration.add(alignment);
+        this.acceleration.add(cohesion);
     }
 
     
     void update() {
         this.position.add(this.velocity);
         this.velocity.add(this.acceleration);
+        this.velocity.limit(this.maxSpeed);
     }
 
     void edges() {

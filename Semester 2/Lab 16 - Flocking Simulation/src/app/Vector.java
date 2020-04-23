@@ -13,6 +13,11 @@ public class Vector {
         this.xvalue = xvalue;
         this.yvalue = yvalue;
     }
+
+    public void set(double xvalue, double yvalue) {
+        this.xvalue = xvalue;
+        this.yvalue = yvalue;
+    }
     
     public double getXValue() { return this.xvalue; }
     public double getYValue() { return this.yvalue; }
@@ -46,6 +51,11 @@ public class Vector {
     void subtract(Vector parent) {
         this.xvalue -= parent.getXValue();
         this.yvalue -= parent.getYValue();
+    }
+
+    void multiply(double multiplier) {
+        this.xvalue *= multiplier;
+        this.yvalue *= multiplier;
     }
 
     void divide(double denominator) {

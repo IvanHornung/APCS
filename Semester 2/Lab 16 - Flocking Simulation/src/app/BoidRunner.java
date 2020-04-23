@@ -34,7 +34,7 @@ public class BoidRunner extends JPanel {
                 boid.update();
             }
             try {
-                Thread.sleep(5);
+                Thread.sleep(10);
             } catch( InterruptedException ex ){}
             this.repaint();
         }

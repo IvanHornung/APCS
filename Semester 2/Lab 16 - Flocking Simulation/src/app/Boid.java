@@ -10,9 +10,9 @@ public class Boid {
     
     public Boid() {
         this.position = new Vector((double)(Math.random()*BoidRunner.WIDTH),(double)(Math.random()*BoidRunner.HEIGHT));
-        double sqSine = Math.pow((Math.random()),2); //random vector with magnitude rand(2,4)
-        double sqCosine = 1-sqSine;
-        this.velocity = new Vector(Math.sqrt(sqSine), Math.sqrt(sqCosine));
+        double angle = Math.random()*360;
+        double radius = Math.random()*2+2; //2-4
+        this.velocity = new Vector((radius * Math.cos(angle)), (radius * Math.sin(angle)));
         this.acceleration = new Vector(0,0);
     }
 

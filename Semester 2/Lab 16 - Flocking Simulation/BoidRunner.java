@@ -13,29 +13,38 @@ public class BoidRunner extends JPanel {
         this.setBackground(Color.BLACK);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setFocusable(true);
+        
+        for(int i = 0; i < 200; i++)
+            flock.add(new Boid());
     }
 
     public void paintComponent(Graphics page) {
         super.paintComponent(page);
         for(Boid boid: flock) {
-            boid.update();
             boid.draw(page);
         }
     }
 
     public void run() {
-        for(int i = 0; i < 1; i++) {
-            flock.add(new Boid());
-        }
         while(true) {
             for(Boid boid : flock){
-                boid.position.xvalue++;
-                boid.position.yvalue++;
+                boid.update();
                 try {
-                    Thread.sleep( 5 );
+                    Thread.sleep(1);
                 } catch( InterruptedException ex ){}
             }
-            repaint();
+            this.repaint();
         }
     }
+
+    void labelConfigure(JLabel label) {
+        //labelConfigure(new JLabel("(" + boid.position.getXValue() + ", " + boid.position.getYValue() +")"));
+        this.setLayout(new FlowLayout());
+        this.add(label);
+        label.setFont(new Font("Courier New", Font.PLAIN, 20));
+        label.setForeground(Color.WHITE);
+        label.setVisible(true);
+        label.setVisible(false);
+    }
+
 }

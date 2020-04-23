@@ -1,25 +1,50 @@
-public class Vector {
-    double xvalue;
-    double yvalue;
-    
-    public Vector() {
-        this.xvalue = Math.random()*1200;
-        this.yvalue = Math.random()*600;
-    }
-    
-    public Vector(double xvalue, double yvalue) {
-        this.xvalue = xvalue;
-        this.yvalue = yvalue;
-    }
-    
-    public double getXValue() { return xvalue; }
-    public double getYValue() { return yvalue; }
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class BoidRunner extends JPanel {
+    public static final int WIDTH = 1920;
+    public static final int HEIGHT = 1080;
+    ArrayList<Boid> flock = new ArrayList<Boid>();
+
+    public BoidRunner() {
+        this.setLayout(null);
+        this.setBackground(Color.BLACK);
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.setFocusable(true);
         
-    public void setXValue(double newValue) { this.xvalue = newValue; }
-    public void setYValue(double newValue) { this.yvalue = newValue; }
-    
-    void add(Vector parent) {
-        this.xvalue += parent.getXValue();
-        this.yvalue += parent.getYValue();
+        for(int i = 0; i < 200; i++)
+            flock.add(new Boid());
     }
+
+    public void paintComponent(Graphics page) {
+        super.paintComponent(page);
+        for(Boid boid: flock) {
+            boid.draw(page);
+        }
+    }
+
+    public void run() {
+        while(true) {
+            for(Boid boid : flock){
+                boid.update();
+                try {
+                    Thread.sleep(1);
+                } catch( InterruptedException ex ){}
+            }
+            this.repaint();
+        }
+    }
+
+    void labelConfigure(JLabel label) {
+        //labelConfigure(new JLabel("(" + boid.position.getXValue() + ", " + boid.position.getYValue() +")"));
+        this.setLayout(new FlowLayout());
+        this.add(label);
+        label.setFont(new Font("Courier New", Font.PLAIN, 20));
+        label.setForeground(Color.WHITE);
+        label.setVisible(true);
+        label.setVisible(false);
+    }
+
 }

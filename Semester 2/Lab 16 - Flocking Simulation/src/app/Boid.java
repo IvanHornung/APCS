@@ -60,7 +60,7 @@ public class Boid {
     }
 
     Vector separation(ArrayList<Boid> flock) {
-        int perceptionRadius = 100;
+        int perceptionRadius = 50;
         int total = 0;
         Vector steering = new Vector(0,0);
         for(Boid boid : flock) {
